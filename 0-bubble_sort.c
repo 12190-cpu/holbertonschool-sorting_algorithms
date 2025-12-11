@@ -30,7 +30,7 @@ void bubble_sort(int *array, size_t size)
 			{
 				temp = array[j];        /* Sauvegarder la valeur courante */
 array[j] = array[j + 1];/* Remplacer par l'élément suivant */
-				array[j + 1] = temp;    /* Placer l'élément courant à la position suivante */
+				array[j + 1] = temp;    /* placer l'element a la position suivante */
 
 				/* Afficher le tableau après chaque échange */
 				print_array(array, size);
