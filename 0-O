@@ -1,0 +1,4 @@
+O(n)        # meilleur cas : tableau déjà trié
+O(n^2)      # cas moyen
+O(n^2)      # pire cas : tableau inversé
+
