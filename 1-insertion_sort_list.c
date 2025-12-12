@@ -1,48 +1,41 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - Trie une liste doublement chaînée d'entiers
- * 			en ordre croissant avec l’algorithme Insertion Sort
- * @list: Pointeur vers le pointeur de tête de la liste
+ * insertion_sort_list - Sorts a doubly linked list of integers
+ *                       in ascending order using Insertion sort
+ * @list: Double pointer to the head of the list
  *
- * Description: On parcourt la liste et insère chaque élément à sa place
- * 		correcte dans la portion déjà triée à gauche.
+ * Description: Prints the list after each swap.
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *insert, *tmp;
+    listint_t *current, *temp;
 
-	if (!list || !*list || !(*list)->next)
-		return;
+    if (list == NULL || *list == NULL || (*list)->next == NULL)
+        return;
 
-	current = (*list)->next;
+    current = (*list)->next;
+    while (current)
+    {
+        temp = current;
+        while (temp->prev && temp->prev->n > temp->n)
+        {
+            temp->prev->next = temp->next;
+            if (temp->next)
+                temp->next->prev = temp->prev;
 
-	while (current)
-	{
-		insert = current->prev;
-		tmp = current->next;
+            temp->next = temp->prev;
+            temp->prev = temp->next->prev;
 
-		while (insert && current->n < insert->n)
-		{
-			insert->next = current->next;
-			if (current->next)
-				current->next->prev = insert;
+            if (temp->prev)
+                temp->prev->next = temp;
+            else
+                *list = temp;
 
-			current->prev = insert->prev;
-			current->next = insert;
+            temp->next->prev = temp;
 
-			if (insert->prev)
-				insert->prev->next = current;
-			else
-			
-			insert->prev = current;
-
-			print_list(*list);
-
-			insert = current->prev;
-		}
-
-		current = tmp;
-	}
+            print_list(*list);
+        }
+        current = current->next;
+    }
 }
-
