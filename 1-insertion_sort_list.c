@@ -1,41 +1,51 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - Sorts a doubly linked list of integers
- *                       in ascending order using Insertion sort
- * @list: Double pointer to the head of the list
+ * insertion_sort_list - Trie une liste doublement chaînée d'entiers
+ *                       en ordre croissant avec l’algorithme Insertion Sort
+ * @list: Pointeur vers le pointeur de tête de la liste
  *
- * Description: Prints the list after each swap.
+ * Description: On parcourt la liste et insère chaque élément à sa place
+ *              correcte dans la portion déjà triée à gauche.
  */
 void insertion_sort_list(listint_t **list)
 {
-    listint_t *current, *temp;
+    listint_t *current, *insert, *tmp;
 
-    if (list == NULL || *list == NULL || (*list)->next == NULL)
+    /* Vérifier si la liste est vide ou contient un seul élément */
+    if (!list || !*list || !(*list)->next)
         return;
 
-    current = (*list)->next;
+    current = (*list)->next; /* Commencer au 2e élément */
+
     while (current)
     {
-        temp = current;
-        while (temp->prev && temp->prev->n > temp->n)
+        insert = current->prev; /* Élément précédent */
+        tmp = current->next;    /* Sauvegarde du suivant */
+
+        /* Tant que l'élément précédent est plus grand, on échange */
+        while (insert && current->n < insert->n)
         {
-            temp->prev->next = temp->next;
-            if (temp->next)
-                temp->next->prev = temp->prev;
+            /* Décrocher current et le placer avant insert */
+            insert->next = current->next;
+            if (current->next)
+                current->next->prev = insert;
 
-            temp->next = temp->prev;
-            temp->prev = temp->next->prev;
+            current->prev = insert->prev;
+            current->next = insert;
 
-            if (temp->prev)
-                temp->prev->next = temp;
+            if (insert->prev)
+                insert->prev->next = current;
             else
-                *list = temp;
+                *list = current; /* Nouveau début de la liste */
 
-            temp->next->prev = temp;
+            insert->prev = current;
 
-            print_list(*list);
+            print_list(*list); /* Afficher la liste après chaque échange */
+
+            insert = current->prev; /* Revenir en arrière pour continuer */
         }
-        current = current->next;
+
+        current = tmp; /* Passer à l’élément suivant */
     }
 }
