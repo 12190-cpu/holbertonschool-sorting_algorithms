@@ -15,24 +15,19 @@ void bubble_sort(int *array, size_t size)
 	size_t i, j;
 	int temp;
 
-	/* Si le tableau est vide ou contient moins de 2 éléments, ne rien faire */
 	if (!array || size < 2)
 		return;
 
-	/* Boucle pour chaque élément du tableau */
 	for (i = 0; i < size - 1; i++)
 	{
-		/* Boucle pour comparer chaque paire d'éléments adjacents */
 		for (j = 0; j < size - i - 1; j++)
 		{
-			/* Si l'élément courant est plus grand que le suivant, on échange */
 			if (array[j] > array[j + 1])
 			{
-				temp = array[j];        /* Sauvegarder la valeur courante */
-array[j] = array[j + 1];/* Remplacer par l'élément suivant */
-				array[j + 1] = temp;    /* placer l'element a la position suivante */
+				temp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp;
 
-				/* Afficher le tableau après chaque échange */
 				print_array(array, size);
 			}
 		}
