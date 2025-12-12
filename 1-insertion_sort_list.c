@@ -16,12 +16,12 @@ void insertion_sort_list(listint_t **list)
     if (!list || !*list || !(*list)->next)
         return;
 
-    current = (*list)->next; /* Commencer au 2e élément */
+    current = (*list)->next;
 
     while (current)
     {
-        insert = current->prev; /* Élément précédent */
-        tmp = current->next;    /* Sauvegarde du suivant */
+        insert = current->prev;
+        tmp = current->next;
 
         /* Tant que l'élément précédent est plus grand, on échange */
         while (insert && current->n < insert->n)
@@ -37,15 +37,15 @@ void insertion_sort_list(listint_t **list)
             if (insert->prev)
                 insert->prev->next = current;
             else
-                *list = current; /* Nouveau début de la liste */
+                *list = current;
 
             insert->prev = current;
 
-            print_list(*list); /* Afficher la liste après chaque échange */
+            print_list(*list);
 
-            insert = current->prev; /* Revenir en arrière pour continuer */
+            insert = current->prev;
         }
 
-        current = tmp; /* Passer à l’élément suivant */
+        current = tmp;
     }
 }
